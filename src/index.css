@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== BASE ===== */
+html {
+  @apply scroll-smooth overflow-hidden;
+}
+
+body {
+  @apply bg-gradient-to-tr from-[#0A0E14] via-[#0F172A] to-[#1E293B] text-[#E2E8F0];
+}
+
+/* ===== UTILITIES ===== */
+.container {
+  @apply mx-auto px-4 lg:px-8 xl:max-w-6xl;
+}
+
+.section {
+  @apply pt-20 lg:pt-32;
+}
+
+.reveal-up {
+  @apply translate-y-20 opacity-0;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.logo {
+  @apply text-2xl font-semibold;
+  font-family: "Lucida Handwriting";
+}
+
+.headline-1,
+.headline-2 {
+  @apply max-w-max text-zinc-50;
+  /*background: -webkit-linear-gradient(0deg, #fafafa, #a1a1aa);
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent;*/
+}
+
+.headline-1 {
+  @apply text-4xl leading-tight font-semibold lg:text-5xl lg:leading-tight;
+}
+
+.headline-2 {
+  @apply text-3xl lg:text-4xl lg:leading-tight font-semibold;
+}
+
+.title-1 {
+  @apply text-[22px] font-normal;
+}
+
+.typing-headline {
+  @apply text-4xl text-primary leading-tight font-semibold lg:text-5xl lg:leading-tight;
+}
+
+/* ===== COMPONENTS ===== */
+/* Menu button */
+.menu-btn {
+  @apply w-10 h-10 grid place-items-center rounded-xl
+    bg-zinc-50/10 dark:bg-zinc-800/40
+    ring-inset ring-1 ring-zinc-50/[0.05] dark:ring-zinc-800/[0.6]
+    backdrop-blur-2xl
+    hover:bg-zinc-50/20 dark:hover:bg-zinc-700/60
+    active:scale-95
+    transition duration-300 ease-out;
+  transition-property: transform, background-color, box-shadow;
+}
+
+/* Navbar */
+.navbar {
+  @apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-zinc-50/10 rounded-lg ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm opacity-0 invisible md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0 md:visible md:scale-100 backdrop-blur-2xl;
+  transition-property: opacity, transform, filter;
+}
+
+.navbar.active {
+  @apply opacity-100 scale-100 blur-0 visible;
+}
+
+.navbar .active-box {
+  @apply absolute bg-zinc-50 rounded-lg -z-10 transition-[top,left] duration-500;
+}
+
+.nav-link {
+  @apply grid items-center h-9 px-4 text-sm font-medium tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors;
+}
+
+.nav-link.active {
+  @apply text-zinc-900 duration-500;
+}
+
+/* Button */
+.btn {
+  @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl font-medium text-sm ring-1 ring-zinc-50/5 ring-inset;
+  transition-property: background-color;
+}
+
+.btn-secondary {
+  @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80;
+}
+
+.btn .material-symbols-rounded {
+  @apply text-[18px];
+}
+
+.btn:has(.material-symbols-rounded) {
+  @apply pr-3;
+}
+
+.btn-primary {
+  @apply h-11 bg-primary text-zinc-50 transition-all duration-300 active:scale-95;
+}
+
+.btn-primary:hover {
+  @apply bg-primary/90;
+  box-shadow: 0 0 10px rgba(255, 255, 255);
+  transform: scale(1.05);
+}
+
+.btn-outline {
+  @apply h-11 ring-1 ring-inset ring-zinc-50 transition-all duration-300 active:scale-95;
+}
+
+.btn-outline:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255);
+  transform: scale(1.05);
+}
+
+/* Text field */
+.label {
+  @apply block mb-2 text-sm font-normal text-zinc-200;
+}
+
+.text-field {
+  @apply block outline-none w-full px-3 py-3 text-sm bg-zinc-700/50 rounded-xl ring-1 ring-inset ring-transparent transition-shadow hover:ring-zinc-50/5 focus:ring-primary focus:ring-2;
+}
+
+.text-field::placeholder {
+  @apply text-zinc-400;
+}
+
+.card-hover {
+  @apply transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg;
+}
+
+.gradient-border {
+  @apply relative rounded-md bg-zinc-700/50 border border-transparent bg-clip-padding;
+}
