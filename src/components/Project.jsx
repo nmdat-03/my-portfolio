@@ -11,22 +11,22 @@ const projects = [
   {
     imgSrc: img,
     title: "Project 2",
-    tags: ["ReactJS", "TailwindCSS"],
+    tags: ["NextJS", "TailwindCSS"],
     projectLink: "",
   },
   {
     imgSrc: img,
     title: "Project 3",
-    tags: ["ReactJS", "TailwindCSS"],
+    tags: ["HTML", "CSS"],
     projectLink: "",
   },
 ];
 
 const Project = () => {
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section min-h-screen flex items-center">
       <div className="container">
-        <h2 className="headline-2 mb-8 reveal-up">My Projects</h2>
+        <h2 className="headline-2 mb-5 reveal-up">My Projects</h2>
 
         <div className="grid gap-x-4 gap-y-5 grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] reveal-up">
           {projects.map(({ imgSrc, title, tags, projectLink }, key) => (

@@ -1,4 +1,4 @@
-import { ReactLenis } from "lenis/react";
+import { ReactLenis, useLenis } from "lenis/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -16,8 +16,13 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 const App = () => {
+  useLenis(() => {
+    ScrollTrigger.update();
+  });
+
   useGSAP(() => {
     const elements = gsap.utils.toArray(".reveal-up");
+
     elements.forEach((element) => {
       gsap.to(element, {
         scrollTrigger: {
@@ -28,8 +33,6 @@ const App = () => {
         },
         y: 0,
         opacity: 1,
-        duration: 1,
-        ease: "power2.out",
       });
     });
   });

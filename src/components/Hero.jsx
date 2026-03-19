@@ -14,17 +14,17 @@ const Hero = () => {
             <TypeAnimation
               sequence={[
                 "Front-end Developer",
-                1500, // dừng 1.5s
-                "", // xóa
-                500, // chờ 0.5s
+                1500,
+                "",
+                500,
                 "Software Engineer",
                 1500,
-                "", // xóa
+                "",
                 500,
               ]}
-              speed={10} // tốc độ gõ (ms cho mỗi ký tự)
-              deletionSpeed={10} // tốc độ xóa
-              repeat={Infinity} // lặp vô hạn
+              speed={10}
+              deletionSpeed={10}
+              repeat={Infinity}
               wrapper="span"
               className="inline-block"
             />

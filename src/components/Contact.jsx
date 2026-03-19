@@ -20,7 +20,7 @@ const socialLinks = [
 
 const Contact = () => {
   return (
-    <section id="contact" className="section">
+    <section id="contact" className="section min-h-screen flex items-center">
       <div className="container lg:grid grid-cols-2 lg:items-stretch">
         <div className="mb-12 lg:mb-0 lg:flex lg:flex-col">
           <h2 className="headline-2 mb-8 lg:max-w-[12ch] reveal-up">
@@ -33,7 +33,7 @@ const Contact = () => {
                 key={key}
                 href={href}
                 target="_blank"
-                className="w-16 h-16 grid place-items-center ring-inset ring-2 ring-zinc-50/5 rounded-lg transition-[background-color, color] hover:bg-zinc-50/10 reveal-up"
+                className="w-16 h-16 grid place-items-center ring-inset ring-1 ring-zinc-50 rounded-lg transition-[background-color, color] hover:bg-zinc-50/10 hover:shadow-md hover:shadow-white transition-all duration-300 reveal-up"
               >
                 {icon ? (
                   <img src={icon} alt={alt} className="w-12 h-12" />

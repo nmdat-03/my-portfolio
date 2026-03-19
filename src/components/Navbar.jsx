@@ -1,71 +1,135 @@
 import { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = ({ navOpen }) => {
   const lastActiveLink = useRef();
   const activeBox = useRef();
+  const linksRef = useRef([]);
+  const isClickScrolling = useRef(false);
 
+  const lenis = useLenis();
+
+  // ===== INIT ACTIVE BOX =====
   const initActiveBox = () => {
-    activeBox.current.style.top = lastActiveLink.current.offsetTop + "px";
-    activeBox.current.style.left = lastActiveLink.current.offsetLeft + "px";
-    activeBox.current.style.width = lastActiveLink.current.offsetWidth + "px";
-    activeBox.current.style.height = lastActiveLink.current.offsetHeight + "px";
+    if (!lastActiveLink.current) return;
+
+    const el = lastActiveLink.current;
+
+    activeBox.current.style.top = el.offsetTop + "px";
+    activeBox.current.style.left = el.offsetLeft + "px";
+    activeBox.current.style.width = el.offsetWidth + "px";
+    activeBox.current.style.height = el.offsetHeight + "px";
   };
 
-  const activeCurrentLink = (e) => {
+  // ===== SET ACTIVE =====
+  const setActive = (el) => {
+    if (!el || !lastActiveLink.current) return;
+
     lastActiveLink.current.classList.remove("active");
-    e.currentTarget.classList.add("active");
-    lastActiveLink.current = e.currentTarget;
+    el.classList.add("active");
+    lastActiveLink.current = el;
 
-    activeBox.current.style.top = e.target.offsetTop + "px";
-    activeBox.current.style.left = e.target.offsetLeft + "px";
-    activeBox.current.style.width = e.target.offsetWidth + "px";
-    activeBox.current.style.height = e.target.offsetHeight + "px";
+    activeBox.current.style.top = el.offsetTop + "px";
+    activeBox.current.style.left = el.offsetLeft + "px";
+    activeBox.current.style.width = el.offsetWidth + "px";
+    activeBox.current.style.height = el.offsetHeight + "px";
   };
 
-  useEffect(initActiveBox, []);
-  window.addEventListener("resize", initActiveBox);
+  // ===== CLICK NAV =====
+  const handleClick = (e, link) => {
+    e.preventDefault();
 
+    if (!lenis) return;
+
+    isClickScrolling.current = true;
+
+    setActive(e.currentTarget);
+
+    lenis.scrollTo(link, {
+      duration: 1.2,
+      offset: 40,
+    });
+  };
+
+  // ===== SYNC LENIS =====
+  useEffect(() => {
+    if (!lenis) return;
+
+    const onScroll = () => {
+      isClickScrolling.current = false;
+    };
+
+    lenis.on("scroll", onScroll);
+
+    return () => {
+      lenis.off("scroll", onScroll);
+    };
+  }, [lenis]);
+
+  // ===== SCROLL TRIGGER =====
+  useEffect(() => {
+    initActiveBox();
+
+    const sections = ["#home", "#about", "#skills", "#projects", "#contact"];
+
+    const triggers = sections.map((id, index) => {
+      const section = document.querySelector(id);
+      const link = linksRef.current[index];
+
+      if (!section || !link) return null;
+
+      return ScrollTrigger.create({
+        trigger: section,
+        start: "top center",
+        end: "bottom center",
+
+        onEnter: () => {
+          if (!isClickScrolling.current) setActive(link);
+        },
+        onEnterBack: () => {
+          if (!isClickScrolling.current) setActive(link);
+        },
+      });
+    });
+
+    window.addEventListener("resize", initActiveBox);
+
+    return () => {
+      window.removeEventListener("resize", initActiveBox);
+      triggers.forEach((t) => t && t.kill());
+    };
+  }, []);
+
+  // ===== NAV ITEMS =====
   const navItems = [
-    {
-      label: "Home",
-      link: "#home",
-      className: "nav-link active",
-      ref: lastActiveLink,
-    },
-    {
-      label: "About",
-      link: "#about",
-      className: "nav-link",
-    },
-    {
-      label: "Skills",
-      link: "#skills",
-      className: "nav-link",
-    },
-    {
-      label: "Projects",
-      link: "#projects",
-      className: "nav-link",
-    },
-    {
-      label: "Contact",
-      link: "#contact",
-      className: "nav-link md:hidden",
-    },
+    { label: "Home", link: "#home" },
+    { label: "About", link: "#about" },
+    { label: "Skills", link: "#skills" },
+    { label: "Projects", link: "#projects" },
+    { label: "Contact", link: "#contact", className: "md:hidden" },
   ];
 
   return (
     <nav className={"navbar " + (navOpen ? "active" : "")}>
-      {navItems.map(({ label, link, className, ref }, key) => (
+      {navItems.map((item, index) => (
         <a
-          key={key}
-          href={link}
-          className={className}
-          ref={ref}
-          onClick={activeCurrentLink}
+          key={index}
+          href={item.link}
+          className={`nav-link ${index === 0 ? "active" : ""} ${
+            item.className || ""
+          }`}
+          ref={(el) => {
+            linksRef.current[index] = el;
+            if (index === 0) lastActiveLink.current = el;
+          }}
+          onClick={(e) => handleClick(e, item.link)}
         >
-          {label}
+          {item.label}
         </a>
       ))}
 

@@ -4,11 +4,11 @@
 
 /* ===== BASE ===== */
 html {
-  @apply scroll-smooth overflow-hidden;
+  @apply scroll-smooth;
 }
 
 body {
-  @apply bg-gradient-to-tr from-[#0A0E14] via-[#0F172A] to-[#1E293B] text-[#E2E8F0];
+  @apply bg-gradient-to-tr from-[#0A0E14] via-[#0F172A] to-[#1E293B] text-[#E2E8F0] overflow-hidden;
 }
 
 /* ===== UTILITIES ===== */
@@ -33,9 +33,6 @@ body {
 .headline-1,
 .headline-2 {
   @apply max-w-max text-zinc-50;
-  /*background: -webkit-linear-gradient(0deg, #fafafa, #a1a1aa);
-  -webkit-background-clip: text; 
-  -webkit-text-fill-color: transparent;*/
 }
 
 .headline-1 {
@@ -57,13 +54,7 @@ body {
 /* ===== COMPONENTS ===== */
 /* Menu button */
 .menu-btn {
-  @apply w-10 h-10 grid place-items-center rounded-xl
-    bg-zinc-50/10 dark:bg-zinc-800/40
-    ring-inset ring-1 ring-zinc-50/[0.05] dark:ring-zinc-800/[0.6]
-    backdrop-blur-2xl
-    hover:bg-zinc-50/20 dark:hover:bg-zinc-700/60
-    active:scale-95
-    transition duration-300 ease-out;
+  @apply w-10 h-10 grid place-items-center rounded-xl bg-zinc-50/10 dark:bg-zinc-800/40 ring-inset ring-1 ring-zinc-50/[0.05] dark:ring-zinc-800/[0.6] backdrop-blur-2xl hover:bg-zinc-50/20 dark:hover:bg-zinc-700/60 active:scale-95 transition duration-300 ease-out;
   transition-property: transform, background-color, box-shadow;
 }
 
@@ -78,7 +69,7 @@ body {
 }
 
 .navbar .active-box {
-  @apply absolute bg-zinc-50 rounded-lg -z-10 transition-[top,left] duration-500;
+  @apply absolute bg-zinc-50 rounded-lg -z-10 duration-500;
 }
 
 .nav-link {
@@ -108,13 +99,11 @@ body {
 }
 
 .btn-primary {
-  @apply h-11 bg-primary text-zinc-50 transition-all duration-300 active:scale-95;
+  @apply h-11 bg-primary/90 text-zinc-50 transition-all duration-300 active:scale-95;
 }
 
 .btn-primary:hover {
-  @apply bg-primary/90;
-  box-shadow: 0 0 10px rgba(255, 255, 255);
-  transform: scale(1.05);
+  @apply bg-primary shadow-md shadow-white scale-105;
 }
 
 .btn-outline {
@@ -122,8 +111,7 @@ body {
 }
 
 .btn-outline:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255);
-  transform: scale(1.05);
+  @apply bg-slate-800 shadow-md shadow-white scale-105
 }
 
 /* Text field */
@@ -144,5 +132,5 @@ body {
 }
 
 .gradient-border {
-  @apply relative rounded-md bg-zinc-700/50 border border-transparent bg-clip-padding;
+  @apply relative rounded-md bg-gradient-to-br from-zinc-600/30 via-zinc-600/50 to-zinc-600 border border-transparent bg-clip-padding;
 }
